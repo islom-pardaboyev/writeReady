@@ -10,9 +10,12 @@ import {
 if (!getApps().length) {
   initializeApp({
     credential: cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: (process.env.FIREBASE_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
+      projectId: process.env.VITE_FIREBASE_PROJECT_ID,
+      clientEmail: process.env.VITE_FIREBASE_CLIENT_EMAIL,
+      privateKey: (process.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
+        /\\n/g,
+        "\n",
+      ),
     }),
   });
 }
@@ -23,7 +26,6 @@ const MONTHLY_LIMIT = 12;
 
 const ALLOWED_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS_CAP = 8000;
-
 
 type CreditErrorCode = "USER_NOT_FOUND" | "NOT_PRO" | "LIMIT_REACHED";
 
@@ -133,14 +135,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const payload = {
       ...req.body,
       model: ALLOWED_MODEL,
-      max_tokens: Math.min(req.body.max_tokens ?? MAX_TOKENS_CAP, MAX_TOKENS_CAP),
+      max_tokens: Math.min(
+        req.body.max_tokens ?? MAX_TOKENS_CAP,
+        MAX_TOKENS_CAP,
+      ),
     };
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.CLAUDE_API_KEY || "",
+        "x-api-key": process.env.VITE_CLAUDE_API_KEY || "",
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify(payload),
