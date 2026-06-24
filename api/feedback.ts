@@ -24,10 +24,7 @@ function initFirebase() {
 
   const projectId = 'writing-database-d0b7c';
   const clientEmail = 'firebase-adminsdk-fbsvc@writing-database-d0b7c.iam.gserviceaccount.com';
-  const privateKey = (import.meta.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
-    /\\n/g,
-    "\n",
-  );
+  const privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDW5agXJ66Tmgek\nn3GmqjDmGmGEgPZgrHXL8biX3Mw8oRl//KUCYU79ZYZeuEWqqyd2ehrxADzx+fgh\n0/wNDJXWzAeVT0Z09yn0B+J8Gxwkrwlw08lpCvbi0t6M2I1gVUAWK8emL4Tm0ck0\n5oLeCDY5SvH987OytigY04Vqegh/xOP4o1VNXbdT6kLUoWe46hoFnX5wvMsKji6L\nSSqGIbtGWWHt5pV9GnHjSwWxjp61izoiBi8lwZV+6NyadHigorgH8xyMWLNmqyGe\nDUxq/U+PikC25iaz3CYzPlq/Eo+wf1dJphjE+YwCR1mDRMxkcclE1SAUREfjPLmk\n+ItrgAO9AgMBAAECggEACDDkwU0v6Excsjepm1KtXnfu85/+xByOuOFTyeYOmtkB\nIdG9cGPJIPt3rbCUZzby4B8zW7BIomiGvrNXzh+GrpNETrqg0uCA5t5OEbDu168c\nSwKnkKtsUaT7+p5edSeKs82jZIA3Lp0ccDnBDzl8554lrypU1SEAUkHtuetA263R\noxNWH+UPi3MnqBqT0vim5CzONjtTuy46L9GkpfomxsYFijANbVhJSzqXVsGPz6yI\n+qGx78TWEQX+Y3LAe1N0JKL/j8hhJWXhoCpZXA4886dR5224U2i9cBGDoMMR5kNZ\nu6CGAMZvTw1hwAT/xZmc6auXTwCo7wc803kQX1o5uQKBgQD3GTSUgiyVVAjM2c8a\nD1wfK7ekLpdTC3/K1eGvDlrdkx3PrisUB0WqmukcgCb0KtQXlhbLvC68Z0yxg+8s\nQ1/fZSaV4/c6sbzIqBKB7u54aShec63835HJ1ueEHuTcOgS+FJKuk34i3K961I21\noU7KeSXSTyHusyoKA3OjulksSwKBgQDeo3u/cBECyu2lMow2jDIrjD9h1pZoXfVy\n3weC4q+guyT+Plboafj92lQewWb+PtfcvUMpDXcx2yO1s2f+4UO4coPyzHXfaqD4\nn3zJaxZSI7CipaP/5qDEzzn4NiP/+5PPN7bPG4GNEW+dXD4uegcRUNwXMFVkFTSF\nIW2OFH97FwKBgHXoKRbUJsH6n1hgdlpRCfw1uCM3uC2ARzJabJ5Dk0g3cvoueY/N\nCIkn8iQPYocQCLRYgfgli4eLIyVxdyb/3zeR5J+Rb98qAJMe3/XwNQpv4ztup48K\nf154lXCN7VbIuIqa9oMnDgFEnNdXpWcN2bLzrAB2khJ8m4q7qupteS+RAoGAdqbr\n+W+RMUrS8fqJbTy0NC8vTEYfrIl+mPSxvRhwfxmdsn2otX5cu3VS5X0vFYqKYlLf\naw6JGqHuWxS89MI65B7roUdD/oiGN1pQF8whfi8VIOlkCKpxvdGu1FCOSQtbj9Di\ndWf0WCkVseiKHxzbjWfpk9YnfAotDlJtX44fDosCgYEApaFn/sKDTI4KTSq+nNlM\n4CQEbfHKHVzvbsO7MwpoAAk/f00phWCbaSI3v/cz6U7hCIQuaQegO6iZOw+q+kfl\nJ9jgu1CDliiMyAI/6tViLg8zDFEMlmGGlxuumRcw2SWCx3QQd010IEgG8K5JIo2G\nZA9tH6Q+B0mVgL+keM6jZI4=\n-----END PRIVATE KEY-----\n"
 
   if (!projectId || !clientEmail || !privateKey) {
     throw new Error(
