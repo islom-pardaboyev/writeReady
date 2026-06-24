@@ -7,6 +7,7 @@ import { PenLine, UserRound, Menu, X } from "lucide-react";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/writing", label: "Writing" },
+  {to: '/checker', label: "Checker"},
   { to: "/listening", label: "Listening", soon: true },
   { to: "/reading", label: "Reading", soon: true },
 ];

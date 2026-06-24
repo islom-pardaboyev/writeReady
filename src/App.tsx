@@ -12,6 +12,7 @@ import {
   Feedback,
   Pricing,
   UserAccount,
+  Checker,
 } from "./pages";
 import Admin from "./pages/admin";
 import ReportView from "./pages/dashboard/report/ReportView";
@@ -24,7 +25,8 @@ function App() {
   const location = useLocation();
   const shouldShowHeader =
     !location.pathname.startsWith("/writing") &&
-    !location.pathname.startsWith("/admin");
+    !location.pathname.startsWith("/admin") &&
+    !location.pathname.startsWith("/feedback");
 
   useEffect(() => {
     const pageMeta: Record<string, { title: string; description: string }> = {
@@ -100,6 +102,7 @@ function App() {
           <Route path="relax" element={<Relax />} />
         </Route>
         <Route path="/listening" element={<Listening />} />
+        <Route path="/checker" element={<Checker />} />
         <Route path="/reading" element={<Reading />} />
         <Route path="/feedback/:report" element={<Feedback />} />
         <Route path="/report/:reportId" element={<ReportView />} />

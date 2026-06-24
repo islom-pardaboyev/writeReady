@@ -9,5 +9,6 @@ import Reading from "./dashboard/reading/Reading";
 import Feedback from "./dashboard/feedback/Feedback";
 import Pricing from "./dashboard/pricing/Pricing";
 import UserAccount from "./dashboard/userAccount/UserAccount";
+import Checker from "./dashboard/checker/Checker";
 
-export { Home, Practice, Relax, Mock, NotFound, Writing, Listening, Reading, Feedback, Pricing, UserAccount };
+export { Home, Practice, Relax, Mock, NotFound, Writing, Listening, Reading, Feedback, Pricing, UserAccount, Checker };
