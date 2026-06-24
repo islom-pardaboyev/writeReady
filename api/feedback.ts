@@ -8,6 +8,18 @@ import {
 } from "firebase-admin/firestore";
 
 if (!getApps().length) {
+    const privateKey = (process.env.VITE_FIREBASE_PRIVATE_KEY || "")
+    .replace(/\\n/g, "\n");
+
+  if (
+    !process.env.VITE_FIREBASE_PROJECT_ID ||
+    !process.env.VITE_FIREBASE_CLIENT_EMAIL ||
+    !privateKey
+  ) {
+    throw new Error(
+      "Missing Firebase Admin env vars: VITE_FIREBASE_PROJECT_ID, VITE_FIREBASE_CLIENT_EMAIL, VITE_FIREBASE_PRIVATE_KEY",
+    );
+  }
   initializeApp({
     credential: cert({
       projectId: process.env.VITE_FIREBASE_PROJECT_ID,
