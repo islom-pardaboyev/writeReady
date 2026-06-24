@@ -152,7 +152,7 @@ function Relax() {
 
       // 1) Not logged in → send them to sign in / create an account
       if (!user) {
-        navigate("/account"); // ← adjust to your actual UserAccount route if different
+        navigate("/user-account"); // ← adjust to your actual UserAccount route if different
         return;
       }
 
@@ -187,7 +187,7 @@ function Relax() {
     } catch (err) {
       console.error("Failed to verify account/subscription status:", err);
       // Fail safe: if we can't verify, don't grant feedback access
-      navigate("/account");
+      navigate("/user-account");
     } finally {
       setCheckingAccess(false);
       setShowFeedbackModal(false);
