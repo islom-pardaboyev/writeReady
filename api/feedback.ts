@@ -7,35 +7,7 @@ import {
   type DocumentReference,
 } from "firebase-admin/firestore";
 
-if (!getApps().length) {
-    const privateKey = (process.env.VITE_FIREBASE_PRIVATE_KEY || "")
-    .replace(/\\n/g, "\n");
-
-  if (
-    !process.env.VITE_FIREBASE_PROJECT_ID ||
-    !process.env.VITE_FIREBASE_CLIENT_EMAIL ||
-    !privateKey
-  ) {
-    throw new Error(
-      "Missing Firebase Admin env vars: VITE_FIREBASE_PROJECT_ID, VITE_FIREBASE_CLIENT_EMAIL, VITE_FIREBASE_PRIVATE_KEY",
-    );
-  }
-  initializeApp({
-    credential: cert({
-      projectId: process.env.VITE_FIREBASE_PROJECT_ID,
-      clientEmail: process.env.VITE_FIREBASE_CLIENT_EMAIL,
-      privateKey: (process.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
-        /\\n/g,
-        "\n",
-      ),
-    }),
-  });
-}
-
-const db = getFirestore();
-
 const MONTHLY_LIMIT = 12;
-
 const ALLOWED_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS_CAP = 8000;
 
@@ -45,6 +17,27 @@ class CreditError extends Error {
   constructor(public code: CreditErrorCode) {
     super(code);
   }
+}
+
+function initFirebase() {
+  if (getApps().length) return;
+
+  const projectId = process.env.VITE_FIREBASE_PROJECT_ID;
+  const clientEmail = process.env.VITE_FIREBASE_CLIENT_EMAIL;
+  const privateKey = (process.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
+    /\\n/g,
+    "\n",
+  );
+
+  if (!projectId || !clientEmail || !privateKey) {
+    throw new Error(
+      `Missing Firebase env vars. Got: projectId=${!!projectId}, clientEmail=${!!clientEmail}, privateKey=${!!privateKey}`,
+    );
+  }
+
+  initializeApp({
+    credential: cert({ projectId, clientEmail, privateKey }),
+  });
 }
 
 function currentMonthKey(): string {
@@ -79,6 +72,7 @@ async function consumeCredit(
   uid: string,
   monthKey: string,
 ): Promise<DocumentReference> {
+  const db = getFirestore();
   const userRef = db.collection("users").doc(uid);
 
   await db.runTransaction(async (tx) => {
@@ -109,6 +103,12 @@ async function refundCredit(userRef: DocumentReference, monthKey: string) {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  try {
+    initFirebase();
+  } catch (e: any) {
+    return res.status(500).json({ error: `Firebase init failed: ${e.message}` });
   }
 
   let uid: string;
