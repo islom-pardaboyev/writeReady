@@ -22,8 +22,8 @@ class CreditError extends Error {
 function initFirebase() {
   if (getApps().length) return;
 
-  const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-  const clientEmail = import.meta.env.VITE_FIREBASE_CLIENT_EMAIL;
+  const projectId = 'writing-database-d0b7c';
+  const clientEmail = 'firebase-adminsdk-fbsvc@writing-database-d0b7c.iam.gserviceaccount.com';
   const privateKey = (import.meta.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
     /\\n/g,
     "\n",
