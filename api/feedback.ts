@@ -22,9 +22,9 @@ class CreditError extends Error {
 function initFirebase() {
   if (getApps().length) return;
 
-  const projectId = process.env.VITE_FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.VITE_FIREBASE_CLIENT_EMAIL;
-  const privateKey = (process.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
+  const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+  const clientEmail = import.meta.env.VITE_FIREBASE_CLIENT_EMAIL;
+  const privateKey = (import.meta.env.VITE_FIREBASE_PRIVATE_KEY || "").replace(
     /\\n/g,
     "\n",
   );
