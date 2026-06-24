@@ -132,10 +132,16 @@ Rules:
 Analyze every sentence and return the complete JSON object.`,
   });
 
+    const currentUser = auth.currentUser;
+  if (!currentUser) throw new Error("You must be signed in to get feedback.");
+  const idToken = await currentUser.getIdToken();
+
+
   const response = await fetch("/api/feedback", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+       Authorization: `Bearer ${idToken}`,
     },
     body: JSON.stringify({
       model: "claude-sonnet-4-6",
